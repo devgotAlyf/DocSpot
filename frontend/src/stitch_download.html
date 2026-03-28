@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Clinical Sanctuary - Book Appointment</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#390c00",
+              "error-container": "#ffdad6",
+              "on-secondary": "#ffffff",
+              "primary-fixed-dim": "#6cd8c9",
+              "on-primary-fixed-variant": "#005048",
+              "inverse-surface": "#2c3130",
+              "on-surface-variant": "#3d4947",
+              "surface-dim": "#d6dbd9",
+              "tertiary-container": "#b15d40",
+              "background": "#f6faf8",
+              "primary-container": "#008377",
+              "on-secondary-fixed-variant": "#284d48",
+              "tertiary": "#92462b",
+              "surface-variant": "#dee4e1",
+              "error": "#ba1a1a",
+              "surface-container-lowest": "#ffffff",
+              "surface": "#f6faf8",
+              "surface-container-low": "#f0f5f2",
+              "on-secondary-container": "#466b65",
+              "secondary": "#40655f",
+              "on-secondary-fixed": "#00201c",
+              "on-surface": "#171d1c",
+              "tertiary-fixed-dim": "#ffb59c",
+              "surface-container-highest": "#dee4e1",
+              "inverse-on-surface": "#edf2ef",
+              "on-primary-container": "#f4fffb",
+              "outline": "#6d7a77",
+              "secondary-container": "#c2ebe3",
+              "surface-container": "#eaefed",
+              "surface-bright": "#f6faf8",
+              "surface-tint": "#006a60",
+              "on-tertiary": "#ffffff",
+              "primary": "#00685e",
+              "tertiary-fixed": "#ffdbcf",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#a7cfc7",
+              "on-primary-fixed": "#00201c",
+              "on-tertiary-fixed-variant": "#773118",
+              "primary-fixed": "#8af5e5",
+              "inverse-primary": "#6cd8c9",
+              "surface-container-high": "#e4e9e7",
+              "on-background": "#171d1c",
+              "outline-variant": "#bcc9c6",
+              "on-error": "#ffffff",
+              "secondary-fixed": "#c2ebe3",
+              "on-primary": "#ffffff",
+              "on-tertiary-container": "#fffbff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#008F82]/80 dark:bg-slate-900/80 backdrop-blur-md shadow-xl shadow-[#171d1c]/5 dark:shadow-none">
+<div class="flex items-center justify-between px-8 py-4 max-w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white text-2xl" data-icon="medical_services">medical_services</span>
+<span class="text-xl font-extrabold text-white tracking-tighter">Clinical Sanctuary</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-white font-bold font-manrope tracking-tight hover:opacity-80 transition-opacity" href="#">Home</a>
+<a class="text-teal-50 dark:text-teal-800 font-manrope tracking-tight hover:opacity-80 transition-opacity" href="#">Doctors</a>
+<a class="text-teal-50 dark:text-teal-800 font-manrope tracking-tight hover:opacity-80 transition-opacity" href="#">Appointments</a>
+<a class="text-teal-50 dark:text-teal-800 font-manrope tracking-tight hover:opacity-80 transition-opacity" href="#">Profile</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white/20">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional medical doctor in hospital setting with warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArYp_tOigF7esDuFFS28Pu7Bkdl8yNYffsDW5iQrW_02jAOLYZ_T3gK0o7RoxphDRqVL_UgMA1iVRAXs3u23Yh71SuavMcpIcB75ND_cKdzP9foabGiFjTmhDG_CWccHOdSdu8piZfcP3QRaghUO7kaLgARUNEuqIznxxNhPJ-Nc5v-lJPJq_42-8Nc61o5_NbAWooQ9CHXn-uJ6UKgLnIha6StzGnMqw_XXqVGiegRJr400dF-BM-YLwSmg0hKw_Jx6XEKe0KwFLN"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 px-6 md:px-12 max-w-7xl mx-auto">
+<!-- Hero Banner Section -->
+<section class="mt-8 rounded-xl md:rounded-xl overflow-hidden bg-[#008F82] relative min-h-[500px] flex flex-col md:flex-row items-center">
+<!-- Content Left -->
+<div class="flex-1 p-10 md:p-20 z-10 text-center md:text-left">
+<h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight tracking-tight mb-10 max-w-xl">
+                    Book Appointment With 100+ Trusted Doctors
+                </h1>
+<button class="bg-white text-[#008F82] px-10 py-5 rounded-full font-bold text-lg hover:bg-teal-50 active:scale-95 transition-all shadow-lg shadow-black/10">
+                    Create account
+                </button>
+</div>
+<!-- Image Right -->
+<div class="flex-1 relative w-full h-[400px] md:h-full self-end md:self-auto flex justify-center md:justify-end items-end overflow-hidden">
+<img alt="Female Doctor" class="h-[110%] w-auto object-contain object-bottom transform translate-y-4 md:translate-y-8 md:translate-x-12" data-alt="high-quality studio portrait of a confident female doctor in a white lab coat with a stethoscope, smiling and pointing towards the left with a bright clinical background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChl5r3mFk1F6MQ4M0jOVEqOFTwpdCpumuJL5mWDWlFLoXvyQIfSJJxXLwCH-_1SFl0Kp7yL4R3uXWsW6I59DEFZnrV4ywLfePbDvNNiWv_Brr8aLdCbLGxDfRcP7sU7pvsOumFLRi8EyVZT5Aehf1Gy0MMpIt-juPkQAatPLdmRdagY53H2t5a_YpF_Kh2Ea_DB52NN3Q7WY5j7k-jtQ2ZGU56ya60cGqRehwdqmZZ74sD3Bb-Xu8koiBgocs5SvKN4ODXo1d5_d7-"/>
+</div>
+<!-- Subtle Decorative Elements -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+<div class="absolute bottom-0 left-0 w-96 h-96 bg-black/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
+</section>
+<!-- Bento Grid Categories / Stats -->
+<section class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-low p-8 rounded-lg flex flex-col justify-between group cursor-pointer hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="stethoscope">stethoscope</span>
+<span class="text-primary-container font-bold text-sm bg-primary-fixed px-4 py-1 rounded-full">New Specialist</span>
+</div>
+<div class="mt-12">
+<h3 class="text-2xl font-bold text-on-surface mb-2">Advanced Cardiology</h3>
+<p class="text-on-surface-variant max-w-md">Our new diagnostic center features the latest in non-invasive imaging and preventive heart care.</p>
+</div>
+</div>
+<div class="bg-primary p-8 rounded-lg text-white flex flex-col justify-center items-center text-center">
+<span class="text-5xl font-extrabold mb-2">24/7</span>
+<p class="font-medium opacity-90">Support Available</p>
+<div class="mt-6 w-full h-1 bg-white/20 rounded-full overflow-hidden">
+<div class="w-full h-full bg-white"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-lg flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 bg-secondary-container rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="verified_user">verified_user</span>
+</div>
+<h3 class="font-bold text-on-surface">Certified Care</h3>
+<p class="text-sm text-on-surface-variant mt-2">ISO 9001 Certified medical facility</p>
+</div>
+<div class="md:col-span-2 bg-surface-container-low p-8 rounded-lg overflow-hidden relative group">
+<div class="flex flex-col md:flex-row items-center gap-8">
+<div class="flex-1">
+<h3 class="text-2xl font-bold text-on-surface mb-4">Telehealth Appointments</h3>
+<p class="text-on-surface-variant mb-6">Connect with your physician from the comfort of your home. Secure, encrypted video consultations.</p>
+<div class="flex gap-4">
+<span class="px-4 py-2 bg-white rounded-full text-xs font-bold text-primary shadow-sm">Video</span>
+<span class="px-4 py-2 bg-white rounded-full text-xs font-bold text-primary shadow-sm">Chat</span>
+</div>
+</div>
+<div class="flex-1 w-full">
+<img alt="Telehealth" class="rounded-lg shadow-xl w-full h-48 object-cover" data-alt="professional medical video conference on a tablet screen with a doctor in a modern bright office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPb8y6GCeHn_8LL5CeZKfofwqLN-fpceQ-OZA1HkN1BhOSczxtqOT1Ee0sCxkKzfXoTL0RgFRtXjl5l9WgXfuFMOMH4paM8Qgg5o212M03gfJDG6X-Az3wUZAmCzco3WeqG0uWMTNv_2kqvHaBi6j_TzdLksiNBJ5GPAs1eojZuQ8eOIuZMkW3aKyQMuySfOR8uv5VwoSL4nfy4uM0cCTEieeMLyt01NidkT0l6of5gT-mIOcrsezXisAPGZDPEJkBh3bR6yEg2_Wc"/>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-[0px_-10px_40px_rgba(23,29,28,0.06)] rounded-t-xl px-6 pb-6 pt-3 flex justify-around items-center">
+<a class="flex flex-col items-center justify-center bg-[#f0f5f2] dark:bg-teal-900/30 text-[#00685e] dark:text-teal-300 rounded-full px-6 py-2 transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-manrope text-xs font-semibold">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-6 py-2 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+<span class="font-manrope text-xs font-semibold">Doctors</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-6 py-2 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-manrope text-xs font-semibold">Appointments</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-6 py-2 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-manrope text-xs font-semibold">Profile</span>
+</a>
+</nav>
+</body></html>
