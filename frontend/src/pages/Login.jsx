@@ -5,8 +5,8 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { createClient } from '@supabase/supabase-js'
 import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
-const supabaseUrl = 'https://vpwpqaqcczqawbgpvzxb.supabase.co'
-const supabaseAnonKey = 'sb_publishable_6sP4ChuuIoQLGzWkEsyLtQ_KDgiCPyQ'
+const supabaseUrl = 'https://vqkkspipvpynuqspegda.supabase.co'
+const supabaseAnonKey = 'sb_publishable_v0CCPrxIc8m-qnBvVFN2sA_2xNMDLCC'
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 const Login = () => {

@@ -35,6 +35,14 @@ const Navbar = () => {
       </ul>
 
       <div className='flex items-center gap-4'>
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className='hidden md:block border px-5 py-2.5 rounded-full font-medium hover:scale-105 transition-all text-primary border-primary hover:bg-primary hover:text-white'
+          title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
+        >
+          {darkMode ? 'Light' : 'Dark'}
+        </button>
+
         {token && userData ? (
           <div className={`flex items-center gap-2 cursor-pointer group relative py-4 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
             <span className={`font-bold hover:text-primary transition-colors text-lg ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>Hello, {userData.name || 'User'}</span>
@@ -60,13 +68,6 @@ const Navbar = () => {
               className={`text-white px-8 py-3 rounded-full font-light hover:scale-105 transition-all ${darkMode ? 'bg-teal-600 hover:bg-teal-700' : 'bg-primary hover:scale-105'}`}
             >
               Create Account
-            </button>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className='border px-5 py-2.5 rounded-full font-medium hover:scale-105 transition-all ml-2 text-primary border-primary hover:bg-primary hover:text-white'
-              title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
-            >
-              {darkMode ? 'Light' : 'Dark'}
             </button>
           </div>
         )}

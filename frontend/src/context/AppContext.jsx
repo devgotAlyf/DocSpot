@@ -3,8 +3,8 @@ import { toast } from "react-toastify";
 import axios from 'axios'
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = 'https://vpwpqaqcczqawbgpvzxb.supabase.co'
-const supabaseAnonKey = 'sb_publishable_6sP4ChuuIoQLGzWkEsyLtQ_KDgiCPyQ'
+const supabaseUrl = 'https://vqkkspipvpynuqspegda.supabase.co'
+const supabaseAnonKey = 'sb_publishable_v0CCPrxIc8m-qnBvVFN2sA_2xNMDLCC'
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export const AppContext = createContext()
