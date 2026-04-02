@@ -5,8 +5,8 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { createClient } from '@supabase/supabase-js'
 import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
-const supabaseUrl = 'https://vqkkspipvpynuqspegda.supabase.co'
-const supabaseAnonKey = 'sb_publishable_v0CCPrxIc8m-qnBvVFN2sA_2xNMDLCC'
+const supabaseUrl = 'https://bhhzapwthcuabbsopcpu.supabase.co'
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoaHphcHd0aGN1YWJic29wY3B1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNDAyODgsImV4cCI6MjA5MDcxNjI4OH0.s_TWSMSP3eMbfV36OlLnJVEyqW3hPbAjpl68Krqq1wE'
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 const Login = () => {
@@ -28,10 +28,15 @@ const Login = () => {
       if (state === 'Sign Up') {
         const { data } = await axios.post(backendUrl + '/api/user/register', { name, email, password });
         if (data.success) {
-          localStorage.setItem('token', data.token)
-          setToken(data.token)
-          toast.success("Signup successful!")
-          navigate('/')
+          if (data.token) {
+            localStorage.setItem('token', data.token)
+            setToken(data.token)
+            toast.success(data.message || "Signup successful!")
+            navigate('/')
+          } else {
+            toast.info(data.message || "Please check your email for a confirmation link.")
+            setState('Login')
+          }
         } else {
           toast.error(data.message)
         }
@@ -145,7 +150,6 @@ const Login = () => {
               <input style={{...styles.input, background: darkMode ? '#2a2a2a' : '#f0f4f4', color: darkMode ? '#e0e0e0' : '#444'}} type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
             </div>
 
-            <p style={{...styles.forgotLink, color: darkMode ? '#888' : '#888'}}>Forgot your password?</p>
 
             <button type="submit" style={styles.primaryBtn} disabled={loading}>
               {loading ? 'Signing in...' : 'SIGN IN'}

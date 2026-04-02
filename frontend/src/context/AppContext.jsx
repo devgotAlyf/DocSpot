@@ -3,8 +3,8 @@ import { toast } from "react-toastify";
 import axios from 'axios'
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = 'https://vqkkspipvpynuqspegda.supabase.co'
-const supabaseAnonKey = 'sb_publishable_v0CCPrxIc8m-qnBvVFN2sA_2xNMDLCC'
+const supabaseUrl = 'https://bhhzapwthcuabbsopcpu.supabase.co'
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoaHphcHd0aGN1YWJic29wY3B1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNDAyODgsImV4cCI6MjA5MDcxNjI4OH0.s_TWSMSP3eMbfV36OlLnJVEyqW3hPbAjpl68Krqq1wE'
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export const AppContext = createContext()
@@ -92,6 +92,29 @@ const AppContextProvider = (props) => {
     useEffect(() => {
         localStorage.setItem('darkMode', darkMode)
     }, [darkMode])
+
+    useEffect(() => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+            // When a user is signed in via Supabase (e.g. after email confirmation redirect)
+            // but we don't have our custom backend token yet
+            if (event === 'SIGNED_IN' && session && !token) {
+                try {
+                    const { data } = await axios.post(backendUrl + '/api/user/verify-session', { 
+                        supabaseUserId: session.user.id 
+                    });
+                    if (data.success) {
+                        localStorage.setItem('token', data.token);
+                        setToken(data.token);
+                        toast.success("Email confirmed! You are now signed in.");
+                    }
+                } catch (error) {
+                    console.log("Session sync error:", error);
+                }
+            }
+        });
+
+        return () => subscription.unsubscribe();
+    }, [token, backendUrl]);
 
     useEffect(() => {
         const backgroundColor = darkMode ? '#020617' : '#ffffff'

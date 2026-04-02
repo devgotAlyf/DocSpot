@@ -33,16 +33,41 @@ const registerUser = async (req, res) => {
         if (!validator.isEmail(email)) return res.json({ success: false, message: "Please enter a valid email" })
         if (password.length < 8) return res.json({ success: false, message: "Please enter a strong password" })
 
-        const salt = await bcrypt.genSalt(10); 
-        const hashedPassword = await bcrypt.hash(password, salt)
+        // Sign up with Supabase Auth
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                data: {
+                    displayName: name,
+                },
+            },
+        });
 
-        const userData = { name, email, password: hashedPassword }
-
-        const { data: user, error } = await supabase.from('users').insert([userData]).select().single();
         if (error) throw error;
-        
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
-        res.json({ success: true, token })
+
+        const user = data.user;
+        const session = data.session;
+
+        // Sync metadata to public.users table
+        const { error: syncError } = await supabase.from('users').upsert({
+            id: user.id,
+            name,
+            email,
+        });
+
+        if (syncError) {
+            console.error('Failed to sync to public users table:', syncError);
+        }
+
+        if (session) {
+            // If email confirmation is disabled, we get a session immediately
+            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+            res.json({ success: true, token, message: "Signup successful!" });
+        } else {
+            // If email confirmation is enabled, session will be null
+            res.json({ success: true, message: "Please check your email for a confirmation link." });
+        }
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: error.message })
@@ -53,17 +78,22 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const { data: user, error } = await supabase.from('users').select('*').eq('email', email).single()
+        
+        // Use Supabase Auth to sign in
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        });
 
-        if (error || !user) return res.json({ success: false, message: "User does not exist" })
-
-        const isMatch = await bcrypt.compare(password, user.password)
-        if (isMatch) {
-            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
-            res.json({ success: true, token })
-        } else {
-            res.json({ success: false, message: "Invalid credentials" })
+        if (error) {
+            return res.json({ success: false, message: error.message });
         }
+
+        const user = data.user;
+        
+        // Create custom backend token for compatibility with existing routes
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+        res.json({ success: true, token });
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: error.message })
@@ -242,4 +272,22 @@ const listAppointment = async (req, res) => {
     }
 }
 
-export {registerUser, loginUser, googleLogin, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment}
+// API to verify Supabase session after email confirmation
+const verifySupabaseSession = async (req, res) => {
+    try {
+        const { supabaseUserId } = req.body;
+        if (!supabaseUserId) return res.json({ success: false, message: "Missing Supabase User ID" });
+
+        // Check if user exists in public.users (synced during registration)
+        const { data: user, error } = await supabase.from('users').select('id').eq('id', supabaseUserId).single();
+        if (error || !user) return res.json({ success: false, message: "User profile not found. Please try logging in normally." });
+
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+        res.json({ success: true, token });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+export {registerUser, loginUser, googleLogin, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment, verifySupabaseSession}
